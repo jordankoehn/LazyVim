@@ -17,3 +17,11 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- silent not working
 vim.cmd([[ autocmd BufReadPost * :silent! GuessIndent ]])
+
+-- Override logic for locating root_spec
+vim.g.root_spec = {
+  { "build.gradle.kts", "package.json", "Dockerfile", "pyproject.toml", "Makefile" }, -- 1st: Explicit build/config files
+  "lsp", -- 2nd: Language Server workspace
+  { ".git" }, -- 3rd: Git root fallback
+  "cwd", -- 4th: Current working directory
+}
